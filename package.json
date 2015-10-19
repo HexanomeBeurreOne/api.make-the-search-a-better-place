@@ -4,6 +4,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "crawler": "^0.4.3",
     "express": "4.13.3"
   }
 }

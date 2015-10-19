@@ -1,0 +1,9 @@
+{
+  "name": "api.make-the-search-a-better-place",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "4.13.3"
+  }
+}

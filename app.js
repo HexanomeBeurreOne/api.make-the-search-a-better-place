@@ -15,8 +15,12 @@ app.get('/sayHello', function (req, res) {
 
 app.get('/search', function (req, res) {
   	res.send('Fill the page with results of request ' + req.query.q);
-  	gCrawler.getGoogleResult(req.query.q);
+  	gCrawler.getGoogleResult(req.query.q, 10, googleCallback);
 });
+
+var googleCallback = function(error, res) {
+	console.log(res);
+}
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

@@ -2,6 +2,7 @@
 
 var express = require('express');
 var gCrawler = require('./helpers/google_crawler.js');
+var jaccard = require('./helpers/jaccard.js');
 
 var app = express();
 
@@ -31,6 +32,14 @@ app.get('/spotlight', function (req, res) {
 		//Display results which is a URI list
 		res.send('URI list : ' + results);
 	});
+});
+
+app.get('/jaccard', function(req,res) {
+  res.send("Test Jaccard index");
+  var tab1 = ['A', 'B', 'C', 'D', 'E'];
+  var tab2 = ['D', 'E', 'F', 'G'];
+  console.log(jaccard.calculateJaccardIndex(tab1,tab2));
+
 });
 
 var server = app.listen(process.env.PORT || 3000, function () {

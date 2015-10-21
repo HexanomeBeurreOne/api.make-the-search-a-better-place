@@ -8,4 +8,5 @@ var calculateJaccardIndex = function(tab1, tab2) {
 		};
 	};
 	return sameUri/(tab1.length+tab2.length-sameUri);
-}
+};
+module.exports.calculateJaccardIndex = calculateJaccardIndex;

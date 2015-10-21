@@ -6,8 +6,17 @@
 EXAMPLE:  
 Request:  
 
-    GET http://localhost:3000/sayHello
+    GET /sayHello
 
 Response:  
 
     Hello World!
+
+SEARCH:
+Request:
+
+	GET /search?q=[query]&num=[number of links]
+
+Response:
+
+	JSON object containing result links

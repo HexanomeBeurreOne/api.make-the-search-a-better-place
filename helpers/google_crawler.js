@@ -14,8 +14,9 @@ var googleCallback = function (error, result, $) {
             ///console.log(uri);
             //var toQueueUrl = $(a).attr('href');
             //c.queue(toQueueUrl);
-            // if (uri.indexOf("http") = 1) {};
-            uriArray.push(uri);
+            if (uri.indexOf("http") == 0) {
+                uriArray.push(uri);
+            };
         });
         //console.log(uriArray);
         

@@ -25,8 +25,22 @@ app.get('/search', function (req, res) {
 });
 
 app.get('/getTextfromUrl', function(req, res) {
-	urlToText.getTextFromUrl('https://fr.wikipedia.org/wiki/Lol');
-	res.send('getTextfromUrl');
+	// gestion des parametres de la requete
+	// Exemple, on doit recevoir une url de la forme :
+	// uneAdresse?url=uneUrlAAnalyser
+	// websiteUrl contient uneUrlAAnalyser
+	var websiteUrl = req.query.url;
+
+	urlToText.getTextFromUrl(websiteUrl, function(err, result){
+		if(err){
+			console.err(err);
+		}
+		else {
+			console.log("APP", result);
+			// On affiche le resultat a l'excran
+			res.send(result);
+		}
+	});
 });
 
 var server = app.listen(3000, function () {

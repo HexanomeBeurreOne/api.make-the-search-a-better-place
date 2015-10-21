@@ -25,7 +25,7 @@ app.get('/search', function (req, res) {
 app.get('/spotlight', function (req, res) {
 	var data = spotlight.spotlightSearch(req.query.text, function(err, results){
 		//Display results which is a URI list
-		res.send('Text tested : ' + results);
+		res.send('URI list : ' + results);
 	});
   	
   	

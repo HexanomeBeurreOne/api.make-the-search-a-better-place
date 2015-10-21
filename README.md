@@ -38,4 +38,4 @@ Everything works around one branch (`master`) to follow the [Github Flow](https:
 ## More documentation
 
  * [API Endpoints](https://github.com/HexanomeBeurreOne/api.make-the-search-a-better-place/wiki/Endpoints)
- * [Jolicloud Web Frontend](https://github.com/HexanomeBeurreOne/search.make-the-search-a-better-place)
+ * [Frontend](https://github.com/HexanomeBeurreOne/search.make-the-search-a-better-place)

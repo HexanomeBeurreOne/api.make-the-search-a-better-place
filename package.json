@@ -11,9 +11,10 @@
   "author": "hexa#1",
   "dependencies": {
     "crawler": "^0.4.3",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "request": "^2.65.0"
   },
   "engines": {
-    "node": "4.1.1"
+    "node": "4.2.1"
   }
 }

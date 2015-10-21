@@ -23,6 +23,14 @@ app.get('/search', function (req, res) {
   	});
 });
 
+//------------------------------------ Test the use of spotlight
+app.get('/spotlight', function (req, res) {
+	var data = spotlight.spotlightSearch(req.query.text, function(err, results){
+		//Display results which is a URI list
+		res.send('URI list : ' + results);
+	});
+});
+
 var server = app.listen(process.env.PORT || 3000, function () {
   var host = server.address().address;
   var port = server.address().port;

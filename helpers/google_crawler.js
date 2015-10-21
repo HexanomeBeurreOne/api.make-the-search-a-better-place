@@ -3,11 +3,11 @@
 var Crawler = require("crawler");
 var url = require('url');
 
-var uriArray = [];
 var mainCallback;
 var googleCallback = function (error, result, $) {
         // $ is Cheerio by default 
-        //a lean implementation of core jQuery designed specifically for the server 
+        //a lean implementation of core jQuery designed specifically for the server
+        var uriArray = [];
         $('h3.r > a').each(function(index, a) {
             var href = $(a).attr('href');
             var uri = href.replace("/url?q=", "");

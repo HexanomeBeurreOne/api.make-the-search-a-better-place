@@ -14,9 +14,9 @@ app.get('/sayHello', function (req, res) {
 });
 
 app.get('/search', function (req, res) {
-	var q = req.query.q;
+	var searchQuery = req.query.q;
 	// 10 is the number of links to crawl
-  	gCrawler.getGoogleResult(q, 10, function (error, links) {
+  	gCrawler.getGoogleResult(searchQuery, 10, function (error, links) {
   		console.log(links);
   		res.contentType('application/json');
 		res.send(JSON.stringify(links));

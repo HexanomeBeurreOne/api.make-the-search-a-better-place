@@ -5,7 +5,7 @@ var url = require('url');
 
 var mainCallback;
 var googleCallback = function (error, result, $) {
-        // $ is Cheerio by default 
+        // $ is Cheerio by default
         //a lean implementation of core jQuery designed specifically for the server
         var uriArray = [];
         $('h3.r > a').each(function(index, a) {
@@ -28,14 +28,14 @@ var googleCallback = function (error, result, $) {
             }
         });
         //console.log(uriArray);
-        
+
         //Send to callback
         mainCallback(error, uriArray);
     };
 
 var googleCrawler = new Crawler({
     maxConnections : 10,
-    // This will be called for each crawled page 
+    // This will be called for each crawled page
 });
 
 var getGoogleResult = function(searchQuery, numOfResult, appCallback) {

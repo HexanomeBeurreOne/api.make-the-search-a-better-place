@@ -14,11 +14,13 @@ var spotlightSearch = function(search, callback) {
 	    json: true
 	}, function (error, response, body) {
 
-	    if (!error && response.statusCode === 200) {
-	    	for (var i = body.Resources.length - 1; i >= 0; i--) {
+	    if (!error && response.statusCode === 200) 
+	    {
+	    	for (var i = body.Resources.length - 1; i >= 0; i--) 
+	    	{
 	    		uriList.push(body.Resources[i]["@URI"]);
 	    	};
-	        
+	        //console.log(uriList);
 	        //Callback for synchronous http request
 	        callback(null, uriList);
 	    }
@@ -28,4 +30,3 @@ var spotlightSearch = function(search, callback) {
 };
 //Make the spotlight method visible when requiring the spotlight_use.js file
 module.exports.spotlightSearch = spotlightSearch;
-

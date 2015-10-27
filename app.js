@@ -29,9 +29,46 @@ app.get('/search', function (req, res) {
 
 //------------------------------------ Test the use of spotlight
 app.get('/spotlight', function (req, res) {
-	var data = spotlight.spotlightSearch(req.query.text, function(err, results){
-		//Display results which is a URI list
-		res.send('URI list : ' + results);
+	var data = spotlight.spotlightSearch(req.query.text, function(err, results)
+  {
+    
+
+    //*************************************************
+    //    CALL SPARQL WITH THE RESULTS OF SPOTLIGHT
+    //**************************************************
+
+    //-------------------------------Set synthaxe of URIs for query
+    if (results.length != 0)
+    {
+      var parse = "<";
+      parse += results[0];
+      parse+= ">";
+
+      for (var i = 1; i <= results.length - 1; i++) 
+      {
+          parse += ",<";
+          parse += results[i];
+          parse += ">";
+      };
+
+      //---------------------------------Call sparql localhost URL
+      var request = require("request")
+
+      var uriList = [];
+      var url = 'http://localhost:3000/sparql?uri=' + parse;
+      console.log(url);
+      request({
+          url: url,
+          json: true
+      }, function (error, response, body) 
+      {
+        if (!error && response.statusCode === 200) 
+        {
+          //Display result on the web page   
+          res.send('Triplets : ' + JSON.stringify(body));
+        }
+      })
+    }
 	});
 });
 
@@ -39,7 +76,7 @@ app.get('/spotlight', function (req, res) {
 app.get('/sparql', function (req, res) {
   var data = sparql.sparqlSearch(req.query.uri, function(err, results){
     //Display results which is a URI list
-    res.send('Triplets : ' + results);
+    res.send('Triplets : ' + JSON.stringify(results));
   });
 });
 

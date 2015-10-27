@@ -12,16 +12,18 @@ Response:
 
     Hello World!
 
+
 ### Search links
 **GET** _/search_
 
 Request:
 
-	GET /search?**q**=[query]&**num***=[number of links]
+	GET /search?**q**=[query]&**num**=[number of links]
 
 Response:
 
 	JSON object containing result links
+
 
 ### Spotlight
 **GET** _/spotlight_
@@ -34,3 +36,15 @@ Request:
 Response:  
 
     URI list : http://dbpedia.org/resource/Test_cricket,http://dbpedia.org/resource/Victor_Hugo
+
+
+### Sparql
+**GET** _/sparql_
+
+Request:  
+
+    GET /sparql?**uri**=<[URI1]>,<[URI2]>
+
+Response:  
+
+    JSON Objects containing triplets : s (subject), p (predicate), o (object).

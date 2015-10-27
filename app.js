@@ -2,6 +2,8 @@
 
 var express = require('express');
 var gCrawler = require('./helpers/google_crawler.js');
+var spotlight = require('./helpers/spotlight_use.js');
+var sparql = require('./helpers/sparql.js');
 
 var app = express();
 
@@ -32,6 +34,15 @@ app.get('/spotlight', function (req, res) {
 		res.send('URI list : ' + results);
 	});
 });
+
+//------------------------------------ Test the use of sparql
+app.get('/sparql', function (req, res) {
+  var data = sparql.sparqlSearch(req.query.uri, function(err, results){
+    //Display results which is a URI list
+    res.send('Triplets : ' + results);
+  });
+});
+
 
 var server = app.listen(process.env.PORT || 3000, function () {
   var host = server.address().address;

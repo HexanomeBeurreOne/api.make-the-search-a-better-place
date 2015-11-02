@@ -99,6 +99,11 @@ app.get('/spotlight', function (req, res) {
         }
       })
     }
+    else
+      //URIs empty
+    {
+       res.send('Empty');
+    }
 	});
 });
 

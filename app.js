@@ -4,6 +4,7 @@ var express = require('express');
 var gCrawler = require('./helpers/google_crawler.js');
 var spotlight = require('./helpers/spotlight_use.js');
 var sparql = require('./helpers/sparql.js');
+var urlToText = require('./helpers/urlToText.js');
 
 var app = express();
 
@@ -25,6 +26,25 @@ app.get('/search', function (req, res) {
   		res.contentType('application/json');
 		res.send(JSON.stringify(links));
   	});
+});
+
+app.get('/getTextfromUrl', function(req, res) {
+	// gestion des parametres de la requete
+	// Exemple, on doit recevoir une url de la forme :
+	// uneAdresse?url=uneUrlAAnalyser
+	// websiteUrl contient uneUrlAAnalyser
+	var websiteUrl = req.query.url;
+
+	urlToText.getTextFromUrl(websiteUrl, function(err, result){
+		if(err){
+			console.err(err);
+		}
+		else {
+			console.log("APP", result);
+			// On affiche le resultat a l'excran
+			res.send(result);
+		}
+	});
 });
 
 //------------------------------------ Test the use of spotlight

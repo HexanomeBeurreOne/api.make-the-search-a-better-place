@@ -1,6 +1,7 @@
 "use strict";
 
 var express = require('express');
+var path    = require('path');
 var gCrawler = require('./helpers/google_crawler.js');
 var jaccard = require('./helpers/jaccard.js');
 var spotlight = require('./helpers/spotlight_use.js');
@@ -8,6 +9,7 @@ var sparql = require('./helpers/sparql.js');
 var urlToText = require('./helpers/urlToText.js');
 
 var app = express();
+app.use('/views',express.static(__dirname + '/views'));
 
 /* Avoid CROSS Origin request */
 app.use(function(req, res, next) {
@@ -17,7 +19,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  res.send('Welcome to make-the-search-a-better-place engine!');
+  res.sendFile(path.join(__dirname+'/views/index.html'));
 });
 
 app.get('/sayHello', function (req, res) {

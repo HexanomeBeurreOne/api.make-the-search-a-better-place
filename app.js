@@ -1,6 +1,7 @@
 "use strict";
 
 var express = require('express');
+var waterfall = require('async-waterfall');
 var path    = require('path');
 var gCrawler = require('./helpers/google_crawler.js');
 var jaccard = require('./helpers/jaccard.js');
@@ -22,27 +23,54 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname+'/views/index.html'));
 });
 
-app.get('/sayHello', function (req, res) {
-  res.send('Hello World!');
+app.get('/getUriFromQuery', function(req, res) {
+  //parse query
+  var query = req.query.q || "";
+  var resultLength = req.query.num || 10;
+
+  waterfall([
+    // 1. Fetch Google urls
+    function(callback){
+      gCrawler.getGoogleResult(query, resultLength, function (error, googleLinks) {
+        // Return Objects array : {title:"", url:""}
+        callback(null, googleLinks);
+    	});
+    },
+    // 2. Get text from Google URLs
+    function(googleLinks, callback){
+      urlToText.getTextFromGoogleLinks(googleLinks, function(err, linksWithText){
+        callback(null, linksWithText);
+    	});
+    },
+    // 3. Get spotlight URI from pages text
+    function(linksWithText, callback){
+      spotlight.spotlightSearchFromLinks(linksWithText, function(err, linksWithSpotlightURI){
+        callback(null, linksWithSpotlightURI);
+      });
+    }
+  ], function (err, result) {
+    for(var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+	  res.contentType('application/json');
+	  res.send(JSON.stringify(result));
+    // result now equals 'done'
+  });
 });
 
-app.get('/search', function (req, res) {
+app.get('/getSearchUrls', function (req, res) {
 	var searchQuery = req.query.q;
-	var num = req.query.num;
+  // default google results is set to 10
+	var num = req.query.num || 10;
 
-	// 10 is the number of links to crawl by default
-  	gCrawler.getGoogleResult(searchQuery, num?num:10, function (error, links) {
-  		console.log(links.length + " links found");
-  		res.contentType('application/json');
-		res.send(JSON.stringify(links));
-  	});
+	gCrawler.getGoogleResult(searchQuery, num, function (error, links) {
+    // Return Objects array : {title:"", url:""}
+	  res.contentType('application/json');
+	  res.send(JSON.stringify(links));
+	});
 });
 
 app.get('/getTextfromUrl', function(req, res) {
-	// gestion des parametres de la requete
-	// Exemple, on doit recevoir une url de la forme :
-	// uneAdresse?url=uneUrlAAnalyser
-	// websiteUrl contient uneUrlAAnalyser
 	var websiteUrl = req.query.url;
 
 	urlToText.getTextFromUrl(websiteUrl, function(err, result){
@@ -61,13 +89,14 @@ app.get('/getTextfromUrl', function(req, res) {
 app.get('/spotlight', function (req, res) {
 	var data = spotlight.spotlightSearch(req.query.text, function(err, results)
   {
-
+    res.send('Spotlight search : ' + JSON.stringify(results));
 
     //*************************************************
     //    CALL SPARQL WITH THE RESULTS OF SPOTLIGHT
     //**************************************************
 
     //-------------------------------Set synthaxe of URIs for query
+    /*
     if (results.length != 0)
     {
       var parse = "<";
@@ -99,11 +128,7 @@ app.get('/spotlight', function (req, res) {
         }
       })
     }
-    else
-      //URIs empty
-    {
-       res.send('Empty');
-    }
+    */
 	});
 });
 

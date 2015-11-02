@@ -14,8 +14,7 @@ var spotlightSearch = function(search, callback) {
 	    url: url,
 	    json: true
 	}, function (error, response, body) {
-
-	    if (!error && body && response.statusCode === 200)
+	    if (!error && response.statusCode === 200 && body.Resources != null)
 	    {
 	    	for (var i = body.Resources.length - 1; i >= 0; i--)
 	    	{
@@ -24,6 +23,11 @@ var spotlightSearch = function(search, callback) {
 	        //console.log(uriList);
 	        //Callback for synchronous http request
 	        callback(null, uriList);
+	    }
+	    else
+	    {
+	    	console.log("vide : "+uriList);
+	    	callback(null, uriList);
 	    }
 	});
 };

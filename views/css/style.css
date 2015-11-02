@@ -97,6 +97,7 @@ body {
     margin-top:10px;
     margin-right:10px;
     background-color:#fff;
+    border-color: black;
 }
 .volumeBar {
     display:block;

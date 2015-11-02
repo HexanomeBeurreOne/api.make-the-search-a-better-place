@@ -16,7 +16,21 @@
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="views/js/search.js"></script>
+    <script type="text/javascript" src="views/js/graph.js"></script>
+    <style>
+      .node {
+        stroke: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .link {
+        stroke: #999;
+        stroke-opacity: .6;
+      }
+
+      </style>
   </head>
   <body>
     <div class="site-wrapper">
@@ -52,7 +66,7 @@
           </ul>
         </div>
       </section>
-
+      <graphBody>
     </div>
   </body>
 

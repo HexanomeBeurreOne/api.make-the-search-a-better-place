@@ -48,7 +48,6 @@ $(function() {
 	});
 });
 
-
 var updateVolume = function (x, vol) {
     var volume = $('.volume');
     var percentage;

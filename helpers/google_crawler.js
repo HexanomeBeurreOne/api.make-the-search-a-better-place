@@ -5,15 +5,15 @@ var url = require('url');
 
 var mainCallback;
 var googleCallback = function (error, result, $) {
-        var uriArray = [];
-        //URIs are in 'a' DOM element in 'h3' DOM of class 'r'
+        var urlArray = [];
+        //URLs are in 'a' DOM element in 'h3' DOM of class 'r'
         $('h3.r > a').each(function(index, a) {
             var href;
-            var link = {title:"", uri:""};
+            var link = {title:"", url:""};
             //Get link in 'a' DOM element only if not null
             if (href = $(a).attr('href')) {
-                
-                //Crop href result to find URI
+
+                //Crop href result to find URL
                 if (href.indexOf("/url?q=") != -1) {
                     href = href.replace("/url?q=", "");
                 }
@@ -21,23 +21,23 @@ var googleCallback = function (error, result, $) {
                     href = href.substring(0, href.indexOf("&sa="));
                 }
 
-                //Add URI and title to link object
-                link.uri = href;
+                //Add URL and title to link object
+                link.url = href;
                 link.title = $(a).text()?$(a).text():"";
 
                 //var toQueueUrl = $(a).attr('href');
                 //c.queue(toQueueUrl);
-                
+
                 //Push in array every link which begin with 'http'
-                if (link.uri.indexOf("http") == 0) {
-                    uriArray.push(link);
+                if (link.url.indexOf("http") == 0) {
+                    urlArray.push(link);
                 };
             }
         });
-        //console.log(uriArray);
+        //console.log(urlArray);
 
         //Send to callback
-        mainCallback(error, uriArray);
+        mainCallback(error, urlArray);
     };
 
 var googleCrawler = new Crawler({

@@ -15,17 +15,15 @@ var googleCallback = function (error, result, $) {
                 
                 //Crop href result to find URI
                 if (href.indexOf("/url?q=") != -1) {
-                    link.uri = href.replace("/url?q=", "");
-                    if (link.uri.indexOf("&sa=") != -1) {
-                        link.uri = link.uri.substring(0, link.uri.indexOf("&sa="));
-                    }
-                } else {
-                    link.uri = href;
+                    href = href.replace("/url?q=", "");
+                }
+                if (link.uri.indexOf("&sa=") != -1) {
+                    href = href.substring(0, link.uri.indexOf("&sa="));
                 }
 
-                //Get title
+                //Add URI and title to link object
+                link.uri = href;
                 link.title = $(a).text()?$(a).text():"";
-
 
                 //var toQueueUrl = $(a).attr('href');
                 //c.queue(toQueueUrl);

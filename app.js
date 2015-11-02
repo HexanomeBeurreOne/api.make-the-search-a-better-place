@@ -103,9 +103,9 @@ app.get('/spotlight', function (req, res) {
 //----------------------------------- test jaccard index
 app.get('/jaccard', function(req,res) {
   res.send("Test Jaccard index");
-  var tab1 = [{uri:'A', nbApparition:7}, {uri:'B', nbApparition:3}, {uri:'C', nbApparition:3}];
-  var tab2 = [{uri:'A', nbApparition:5}, {uri:'B', nbApparition:4}];
-  // the result should be 0.28571
+  var tab1 = {'A':1, 'B':2, 'C':4};
+  var tab2 =  {'A':1, 'B':2, 'C':4, 'D':7};
+
   console.log(jaccard.calculateJaccardIndex(tab1,tab2));
 
 });

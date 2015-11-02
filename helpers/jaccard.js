@@ -33,24 +33,16 @@
 // calculate the jaccard index between two tabs
 var calculateJaccardIndex = function(tab1, tab2) {
 	var sameUri = 0;
-	var lengthTab1 = tab1.length;
-	var lengthTab2 = tab2.length;
+	var lengthTab1 = Object.keys(tab1).length;
+	var lengthTab2 = Object.keys(tab2).length;
 	var numerateur = 0;
 	var denominateur = 0;
 
-	for (var i=0 ; i<lengthTab1 ; i++) {
-		for (var j=0 ; j<lengthTab2 ; j++) {
-			if(tab1[i].uri==tab2[j].uri) {
-				if (tab1[i].nbApparition < tab2[j].nbApparition) {
-					numerateur += tab1[i].nbApparition;
-					denominateur += tab2[j].nbApparition;
-				} else {
-					denominateur += tab1[i].nbApparition;
-					numerateur += tab2[j].nbApparition;
-				}
-			}
-		}
-	}
-	return numerateur/denominateur;
+	Object.keys(tab1).map(function(keys) {
+		if(tab2[keys]) {
+			sameUri++;
+		}			
+	});
+	return (sameUri/(lengthTab1+lengthTab2-sameUri));
 };
 module.exports.calculateJaccardIndex = calculateJaccardIndex;

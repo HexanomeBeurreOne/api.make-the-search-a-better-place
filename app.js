@@ -8,6 +8,7 @@ var urlToText = require('./helpers/urlToText.js');
 
 var app = express();
 
+/* Avoid CROSS Origin request */
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -57,7 +58,7 @@ app.get('/getTextfromUrl', function(req, res) {
 app.get('/spotlight', function (req, res) {
 	var data = spotlight.spotlightSearch(req.query.text, function(err, results)
   {
-    
+
 
     //*************************************************
     //    CALL SPARQL WITH THE RESULTS OF SPOTLIGHT
@@ -70,7 +71,7 @@ app.get('/spotlight', function (req, res) {
       parse += results[0];
       parse+= ">";
 
-      for (var i = 1; i <= results.length - 1; i++) 
+      for (var i = 1; i <= results.length - 1; i++)
       {
           parse += ",<";
           parse += results[i];
@@ -86,11 +87,11 @@ app.get('/spotlight', function (req, res) {
       request({
           url: url,
           json: true
-      }, function (error, response, body) 
+      }, function (error, response, body)
       {
-        if (!error && response.statusCode === 200) 
+        if (!error && response.statusCode === 200)
         {
-          //Display result on the web page   
+          //Display result on the web page
           res.send('Triplets : ' + JSON.stringify(body));
         }
       })

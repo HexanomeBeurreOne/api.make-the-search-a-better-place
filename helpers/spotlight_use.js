@@ -49,8 +49,8 @@ var spotlightSearchFromLinks = function(linksData, maincallback) {
 		    		uriList.push(body.Resources[i]["@URI"]);
 		    	}
 					// Add URL text to the main object googleLinks
-					var sortedURIs = utils.arrayToSortedJSON(uriList);
-					linksData[key].spotlightURI=sortedURIs;
+					//var sortedURIs = utils.arrayToSortedJSON(uriList);
+					linksData[key].spotlightURI=uriList;
 					callback();
 		    }
 	  		else {

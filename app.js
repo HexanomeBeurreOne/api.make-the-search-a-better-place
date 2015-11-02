@@ -20,27 +20,19 @@ app.get('/', function (req, res) {
   res.send('Welcome to make-the-search-a-better-place engine!');
 });
 
-app.get('/sayHello', function (req, res) {
-  res.send('Hello World!');
-});
-
-app.get('/search', function (req, res) {
+app.get('/getSearchUrls', function (req, res) {
 	var searchQuery = req.query.q;
-	var num = req.query.num;
+  // default google results is set to 10
+	var num = req.query.num ? 10;
 
-	// 10 is the number of links to crawl by default
-  	gCrawler.getGoogleResult(searchQuery, num?num:10, function (error, links) {
-  		console.log(links.length + " links found");
-  		res.contentType('application/json');
-		res.send(JSON.stringify(links));
-  	});
+	gCrawler.getGoogleResult(searchQuery, num, function (error, links) {
+    // Return Google urls {title:"", url:""}
+	  res.contentType('application/json');
+	  res.send(JSON.stringify(links));
+	});
 });
 
 app.get('/getTextfromUrl', function(req, res) {
-	// gestion des parametres de la requete
-	// Exemple, on doit recevoir une url de la forme :
-	// uneAdresse?url=uneUrlAAnalyser
-	// websiteUrl contient uneUrlAAnalyser
 	var websiteUrl = req.query.url;
 
 	urlToText.getTextFromUrl(websiteUrl, function(err, result){
@@ -59,13 +51,14 @@ app.get('/getTextfromUrl', function(req, res) {
 app.get('/spotlight', function (req, res) {
 	var data = spotlight.spotlightSearch(req.query.text, function(err, results)
   {
-
+    res.send('Spotlight search : ' + JSON.stringify(results));
 
     //*************************************************
     //    CALL SPARQL WITH THE RESULTS OF SPOTLIGHT
     //**************************************************
 
     //-------------------------------Set synthaxe of URIs for query
+    /*
     if (results.length != 0)
     {
       var parse = "<";
@@ -97,6 +90,7 @@ app.get('/spotlight', function (req, res) {
         }
       })
     }
+    */
 	});
 });
 

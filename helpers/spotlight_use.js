@@ -1,11 +1,10 @@
 //Avoid issues calling non-existing variables
 "use strict";
+var request = require("request");
 
 var spotlightSearch = function(search, callback) {
-	
-	//--------------------------------- HTTP CALL
-	var request = require("request")
 
+	//--------------------------------- HTTP CALL
 	var uriList = [];
 	var url = 'http://spotlight.dbpedia.org/rest/annotate?text=' + search + '&confidence=0.2&support=20'
 
@@ -14,9 +13,9 @@ var spotlightSearch = function(search, callback) {
 	    json: true
 	}, function (error, response, body) {
 
-	    if (!error && response.statusCode === 200) 
+	    if (!error && body && response.statusCode === 200)
 	    {
-	    	for (var i = body.Resources.length - 1; i >= 0; i--) 
+	    	for (var i = body.Resources.length - 1; i >= 0; i--)
 	    	{
 	    		uriList.push(body.Resources[i]["@URI"]);
 	    	};
@@ -24,9 +23,7 @@ var spotlightSearch = function(search, callback) {
 	        //Callback for synchronous http request
 	        callback(null, uriList);
 	    }
-	})
-	
-
+	});
 };
 //Make the spotlight method visible when requiring the spotlight_use.js file
 module.exports.spotlightSearch = spotlightSearch;

@@ -17,8 +17,8 @@ var googleCallback = function (error, result, $) {
                 if (href.indexOf("/url?q=") != -1) {
                     href = href.replace("/url?q=", "");
                 }
-                if (link.uri.indexOf("&sa=") != -1) {
-                    href = href.substring(0, link.uri.indexOf("&sa="));
+                if (href.indexOf("&sa=") != -1) {
+                    href = href.substring(0, href.indexOf("&sa="));
                 }
 
                 //Add URI and title to link object

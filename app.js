@@ -34,10 +34,17 @@ app.get('/getUriFromQuery', function(req, res) {
         callback(null, googleLinks);
     	});
     },
+    // 2. Get text from Google URLs
     function(googleLinks, callback){
       urlToText.getTextFromGoogleLinks(googleLinks, function(err, linksWithText){
         callback(null, linksWithText);
     	});
+    },
+    // 3. Get spotlight URI from pages text
+    function(linksWithText, callback){
+      spotlight.spotlightSearchFromLinks(linksWithText, function(err, linksWithSpotlightURI){
+        callback(null, linksWithSpotlightURI);
+      });
     }
   ], function (err, result) {
     for(var i = 0; i < result.length; i++) {

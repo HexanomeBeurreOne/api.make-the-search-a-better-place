@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
 app.get('/getSearchUrls', function (req, res) {
 	var searchQuery = req.query.q;
   // default google results is set to 10
-	var num = req.query.num ? 10;
+	var num = req.query.num || 10;
 
 	gCrawler.getGoogleResult(searchQuery, num, function (error, links) {
     // Return Google urls {title:"", url:""}

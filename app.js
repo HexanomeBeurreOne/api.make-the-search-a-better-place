@@ -1,6 +1,7 @@
 "use strict";
 
 var express = require('express');
+var waterfall = require('async-waterfall');
 var gCrawler = require('./helpers/google_crawler.js');
 var jaccard = require('./helpers/jaccard.js');
 var spotlight = require('./helpers/spotlight_use.js');
@@ -20,13 +21,41 @@ app.get('/', function (req, res) {
   res.send('Welcome to make-the-search-a-better-place engine!');
 });
 
+app.get('/getUriFromQuery', function(req, res) {
+  //parse query
+  var query = req.query.q || "";
+  var resultLength = req.query.num || 10;
+
+  waterfall([
+    // 1. Fetch Google urls
+    function(callback){
+      gCrawler.getGoogleResult(query, resultLength, function (error, googleLinks) {
+        // Return Objects array : {title:"", url:""}
+        callback(null, googleLinks);
+    	});
+    },
+    function(googleLinks, callback){
+      urlToText.getTextFromGoogleLinks(googleLinks, function(err, linksWithText){
+        callback(null, linksWithText);
+    	});
+    }
+  ], function (err, result) {
+    for(var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+	  res.contentType('application/json');
+	  res.send(JSON.stringify(result));
+    // result now equals 'done'
+  });
+});
+
 app.get('/getSearchUrls', function (req, res) {
 	var searchQuery = req.query.q;
   // default google results is set to 10
 	var num = req.query.num || 10;
 
 	gCrawler.getGoogleResult(searchQuery, num, function (error, links) {
-    // Return Google urls {title:"", url:""}
+    // Return Objects array : {title:"", url:""}
 	  res.contentType('application/json');
 	  res.send(JSON.stringify(links));
 	});

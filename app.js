@@ -1,7 +1,6 @@
 "use strict";
 
 var express = require('express');
-var path    = require('path');
 
 var gCrawler = require('./helpers/google_crawler.js');
 var jaccard = require('./helpers/jaccard.js');

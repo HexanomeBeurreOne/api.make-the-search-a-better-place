@@ -9,26 +9,30 @@ var googleCallback = function (error, result, $) {
         //URIs are in 'a' DOM element in 'h3' DOM of class 'r'
         $('h3.r > a').each(function(index, a) {
             var href;
-            //Get link in 'a' DOM element
+            var link = {title:"", uri:""};
+            //Get link in 'a' DOM element only if not null
             if (href = $(a).attr('href')) {
-                var uri;
                 
                 //Crop href result to find URI
                 if (href.indexOf("/url?q=") != -1) {
-                    uri = href.replace("/url?q=", "");
-                    if (uri.indexOf("&sa=") != -1) {
-                        uri = uri.substring(0, uri.indexOf("&sa="));
+                    link.uri = href.replace("/url?q=", "");
+                    if (link.uri.indexOf("&sa=") != -1) {
+                        link.uri = link.uri.substring(0, link.uri.indexOf("&sa="));
                     }
                 } else {
-                    uri = href;
+                    link.uri = href;
                 }
+
+                //Get title
+                link.title = $(a).text()?$(a).text():"";
+
 
                 //var toQueueUrl = $(a).attr('href');
                 //c.queue(toQueueUrl);
                 
                 //Push in array every link which begin with 'http'
-                if (uri.indexOf("http") == 0) {
-                    uriArray.push(uri);
+                if (link.uri.indexOf("http") == 0) {
+                    uriArray.push(link);
                 };
             }
         });

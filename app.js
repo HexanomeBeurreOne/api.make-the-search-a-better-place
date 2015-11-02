@@ -47,6 +47,12 @@ app.get('/getUriFromQuery', function(req, res) {
       spotlight.spotlightSearchFromLinks(linksWithText, function(err, linksWithSpotlightURI){
         callback(null, linksWithSpotlightURI);
       });
+    },
+    // 4. Get triplets from spotlight URI
+    function(linksWithSpotlightURI, callback){
+      sparql.sparqlSearch(linksWithSpotlightURI, function(err, linksWithTriplets){
+        callback(null, linksWithTriplets);
+      });
     }
   ], function (err, result) {
     for(var i = 0; i < result.length; i++) {

@@ -28,7 +28,7 @@ app.get('/search', function (req, res) {
 	var searchQuery = req.query.q;
 	var num = req.query.num;
 
-	// 10 is the number of links to crawl
+	// 10 is the number of links to crawl by default
   	gCrawler.getGoogleResult(searchQuery, num?num:10, function (error, links) {
   		console.log(links.length + " links found");
   		res.contentType('application/json');

@@ -33,7 +33,7 @@ var getTextFromGoogleLinks = function(googleLinks, maincallback) {
 	async.forEachOf(googleLinks, function (value, key, callback) {
 		var urlRequest = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey='+KEY+'&url='+value.url+'&keywordExtractMode=normal&outputMode=json';
 		// Request for an URL
-		request(requestURL, function (error, response, body) {
+		request(urlRequest, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Add URL text to the main object googleLinks
 				body=JSON.parse(body);

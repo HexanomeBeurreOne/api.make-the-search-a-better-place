@@ -72,12 +72,12 @@ app.get('/getUriFromQuery', function(req, res) {
       //console.log(result[i]);
     }
     // on obtient ici le Json de création du graph
-    console.log(utils.constructGraph(result));
+    //console.log(utils.constructGraph(result));
 
     var resultForFront = {list:[], graph:{}};
     resultForFront.list = result;
     resultForFront.graph = utils.constructGraph(result);
-    console.log(resultForFront.graph);
+    //console.log(resultForFront.graph);
 	  res.contentType('application/json');
 	  res.send(JSON.stringify(resultForFront));
     // result now equals 'done'

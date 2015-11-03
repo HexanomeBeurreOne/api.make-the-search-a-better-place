@@ -71,6 +71,9 @@ app.get('/getUriFromQuery', function(req, res) {
     for(var i = 0; i < result.length; i++) {
       console.log(result[i]);
     }
+    // on obtient ici le Json de création du graph
+    console.log(utils.constructGraph(result));
+
 	  res.contentType('application/json');
 	  res.send(JSON.stringify(result));
     // result now equals 'done'

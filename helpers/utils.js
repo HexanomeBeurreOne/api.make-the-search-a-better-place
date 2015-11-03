@@ -26,7 +26,7 @@ var getSubjectsAndObjectsFromTriplets = function(pages, maincallback) {
 
 			subjectsObjectsJSON[value.triplets[0].results.bindings[i].o.value] = subjectsObjectsJSON[value.triplets[0].results.bindings[i].o.value] ? subjectsObjectsJSON[value.triplets[0].results.bindings[i].o.value]+1 : 1;
 		}
-		pages[key].NTM = subjectsObjectsJSON;
+		pages[key].SubjectsObjects = subjectsObjectsJSON;
 
 		callback();
 	}, function (err) {
@@ -36,3 +36,21 @@ var getSubjectsAndObjectsFromTriplets = function(pages, maincallback) {
 	});
 };
 module.exports.getSubjectsAndObjectsFromTriplets = getSubjectsAndObjectsFromTriplets;
+
+var constructGraph = function(pages) {
+	var graph = {};
+
+	var nodes = [];
+	var links = [];
+	for(var i=0 ; i<pages.length ; i++) {
+		nodes.push({"name":pages[i].title,"group":i});
+		for(var j=i+1 ; j<pages.length ; j++) {
+			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]});
+		}
+	}
+	graph["nodes"] = nodes;
+	graph["links"] = links;
+
+	return graph;
+}
+module.exports.constructGraph = constructGraph;

@@ -21,6 +21,7 @@ function runD3Code(graph) {
   force
       .nodes(graph.nodes)
       .links(graph.links)
+      .linkDistance(500)
       .start();
 
   var link = svg.selectAll(".link")
@@ -44,7 +45,7 @@ function runD3Code(graph) {
   var labels = gnodes.append("text")
       .attr("dx", 12)
       .attr("dy", ".35em")
-      .attr("font-size", "10px")
+      .attr("font-size", "12px")
       .text(function(d) { return d.name; });
     
   force.on("tick", function() {

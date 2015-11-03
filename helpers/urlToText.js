@@ -5,7 +5,7 @@ var async = require('async');
 
 
 var getTextFromUrl = function(url, callback) {
-	var KEY = 'e959fb1dd503eaded99080309c9777f8b8fc52c8';
+	var KEY = process.env.RAW_TEXT_API_KEY;
 
 	// Url correspondant a l'appel a la web API
 	var urlRequest = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey='+KEY+'&url='+url+'&keywordExtractMode=normal&outputMode=json';
@@ -25,7 +25,7 @@ var getTextFromUrl = function(url, callback) {
 module.exports.getTextFromUrl = getTextFromUrl;
 
 var getTextFromGoogleLinks = function(googleLinks, maincallback) {
-	var API_KEY = 'e959fb1dd503eaded99080309c9777f8b8fc52c8';
+	var API_KEY = process.env.RAW_TEXT_API_KEY;
 
 	// Create an asynch stack of request exectuted in parallel
 	// value is the object in the array and key is its index

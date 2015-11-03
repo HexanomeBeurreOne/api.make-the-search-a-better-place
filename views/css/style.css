@@ -37,12 +37,7 @@ body {
 .site-wrapper {
   width: 100%;
   height: 100%; /* For at least Firefox */
-  min-height: 100px;
-}
-
-.center_div{
-    display: block;
-    width:80% /* value of your choice which suits your alignment */
+  min-height: 400px;
 }
 
 #logo{

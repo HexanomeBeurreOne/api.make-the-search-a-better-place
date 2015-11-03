@@ -56,7 +56,7 @@ app.get('/getUriFromQuery', function(req, res) {
     }
   ], function (err, result) {
     for(var i = 0; i < result.length; i++) {
-      console.log(result[i]);
+      //console.log(result[i]);
     }
 	  res.contentType('application/json');
 	  res.send(JSON.stringify(result));

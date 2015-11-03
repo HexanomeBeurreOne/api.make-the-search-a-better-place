@@ -20,9 +20,9 @@ $(function() {
         $.get('/getUriFromQuery', {q: query, num: Math.round(numOfPage)}, function (data) {
         	list.text("");
         	console.log(data);
-        	for(var i = 0, l = numOfPage; i< l; i++)	{
+        	for(var i = 0, l = Math.min(numOfPage, data.length); i< l; i++)	{
         		var link = data[i];
-        		list.append("<li class='list-group-item'>" + link.title + " : " + link.uri + "</li>");
+        		list.append("<a class='list-group-item' href='" + link.url + "'>" + link.title + "</a>");
         	}
         });
     });

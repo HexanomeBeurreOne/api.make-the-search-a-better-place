@@ -12,7 +12,9 @@ $(function() {
 
         /* stop form from submitting normally */
         event.preventDefault();
-
+        $('input').blur();
+        $('input').attr('disabled', true);
+        
 	    // Get input query
 	    var query = $('#query').val();
 
@@ -20,14 +22,17 @@ $(function() {
         $.get('/getUriFromQuery', {q: query, num: Math.round(numOfPage)}, function (data) {
         	list.text("");
         	console.log(data);
-        	for(var i = 0, l = Math.min(numOfPage, data.length); i< l; i++)	{
-        		var link = data[i];
+        	for(var i = 0, l = Math.min(numOfPage, data.list.length); i< l; i++)	{
+        		var link = data.list[i];
         		list.append("<a class='list-group-item' href='" + link.url + "'>" + link.title + "</a>");
         	}
-            if (graph = data.graph) {
+            console.log("ICI graph vaut ");
+            console.log(data.graph);
+            if (data.graph) {
                 console.log("Graph will be drawn");
-                runD3code();
+                runD3Code(data.graph);
             }
+            $('input').attr('disabled', false);
         });
     });
 

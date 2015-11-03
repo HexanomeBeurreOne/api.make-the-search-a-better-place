@@ -1,10 +1,3 @@
-var graph = {
-    "nodes":[
-        ],
-    "links":[
-      ]};
-
-window.onload = function runD3code() {
   var width = 1000,
       height = 700;
 
@@ -15,12 +8,15 @@ window.onload = function runD3code() {
       .linkDistance(30)
       .size([width, height]);
 
+function runD3Code(graph) {
+  d3.select("svg").remove();
+
   var svg = d3.select("#graph").append("svg")
       .attr("width", width)
       .attr("height", height);
 
-  // d3.json("views/js/miserables.json", function(error, graph) {
-  //   if (error) throw error;
+  console.log(svg);
+  console.log(graph);
 
   force
       .nodes(graph.nodes)
@@ -50,8 +46,6 @@ window.onload = function runD3code() {
       .attr("dy", ".35em")
       .attr("font-size", "10px")
       .text(function(d) { return d.name; });
-
-  console.log(labels);
     
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })

@@ -8,6 +8,7 @@ var jaccard = require('./helpers/jaccard.js');
 var spotlight = require('./helpers/spotlight_use.js');
 var sparql = require('./helpers/sparql.js');
 var urlToText = require('./helpers/urlToText.js');
+var utils = require('./helpers/utils.js');
 
 var app = express();
 app.use('/views',express.static(__dirname + '/views'));
@@ -52,6 +53,12 @@ app.get('/getUriFromQuery', function(req, res) {
     function(linksWithSpotlightURI, callback){
       sparql.sparqlSearch(linksWithSpotlightURI, function(err, linksWithTriplets){
         callback(null, linksWithTriplets);
+      });
+    },
+    // 5. Get jaccard index for all s and o values of triplets
+    function(linksWithTriplets, callback){
+      utils.getSubjectsAndObjectsFromTriplets(linksWithTriplets, function(err, linksWithJaccard){
+        callback(null, linksWithJaccard);
       });
     }
   ], function (err, result) {

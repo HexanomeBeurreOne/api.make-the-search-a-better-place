@@ -17,7 +17,7 @@ $(function() {
 	    var query = $('#query').val();
 
         /* Send the data using get */
-        $.get('/search', {q: query, num: Math.round(numOfPage)}, function (data) {
+        $.get('/getUriFromQuery', {q: query, num: Math.round(numOfPage)}, function (data) {
         	list.text("");
         	console.log(data);
         	for(var i = 0, l = numOfPage; i< l; i++)	{

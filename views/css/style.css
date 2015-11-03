@@ -41,7 +41,7 @@ body {
 }
 
 .center_div{
-    margin: 0 auto;
+    display: block;
     width:80% /* value of your choice which suits your alignment */
 }
 

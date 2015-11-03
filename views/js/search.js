@@ -24,6 +24,10 @@ $(function() {
         		var link = data[i];
         		list.append("<a class='list-group-item' href='" + link.url + "'>" + link.title + "</a>");
         	}
+            if (graph = data.graph) {
+                console.log("Graph will be drawn");
+                runD3code();
+            }
         });
     });
 

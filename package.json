@@ -1,9 +1,29 @@
 {
-  "name": "api.make-the-search-a-better-place",
+  "name": "api-magic-search",
+  "version": "0.3.0",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
+  "keywords": [
+    "search",
+    "insa"
+  ],
+  "author": "hexa#1",
   "dependencies": {
-    "express": "4.13.3"
+    "async": "^1.5.0",
+    "async-waterfall": "^0.1.5",
+    "crawler": "^0.4.3",
+    "express": "4.13.3",
+    "jsparql": "0.0.2",
+    "request": "^2.65.0"
+  },
+  "engines": {
+    "node": "4.2.1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HexanomeBeurreOne/api.make-the-search-a-better-place.git"
   }
 }

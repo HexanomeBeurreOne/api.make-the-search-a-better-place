@@ -47,6 +47,8 @@ window.onload = function runD3code() {
         {"source":11,"target":2,"value":3},
         {"source":11,"target":0,"value":5}
       ]};
+  // d3.json("views/js/miserables.json", function(error, graph) {
+  //   if (error) throw error;
 
   force
       .nodes(graph.nodes)
@@ -89,5 +91,4 @@ window.onload = function runD3code() {
         return 'translate(' + [d.x, d.y] + ')'; 
     });
   });
-
 }

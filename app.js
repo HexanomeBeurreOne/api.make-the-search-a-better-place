@@ -34,44 +34,48 @@ app.get('/getUriFromQuery', function(req, res) {
     function(callback){
       gCrawler.getGoogleResult(query, resultLength, function (error, googleLinks) {
         // Return Objects array : {title:"", url:""}
+        console.log("****************** 1e callback **********************");
         callback(null, googleLinks);
     	});
     },
     // 2. Get text from Google URLs
     function(googleLinks, callback){
       urlToText.getTextFromGoogleLinks(googleLinks, function(err, linksWithText){
+        console.log("****************** 2e callback **********************");
         callback(null, linksWithText);
     	});
     },
     // 3. Get spotlight URI from pages text
     function(linksWithText, callback){
       spotlight.spotlightSearchFromLinks(linksWithText, function(err, linksWithSpotlightURI){
+        console.log("****************** 3e callback **********************");
         callback(null, linksWithSpotlightURI);
       });
     },
     // 4. Get triplets from spotlight URI
     function(linksWithSpotlightURI, callback){
       sparql.sparqlSearch(linksWithSpotlightURI, function(err, linksWithTriplets){
+        console.log("****************** 4e callback **********************");
         callback(null, linksWithTriplets);
       });
     },
     // 5. Extract Objects and Subjects values from triplets
     function(linksWithTriplets, callback){
       utils.getSubjectsAndObjectsFromTriplets(linksWithTriplets, function(err, linksWithSubjectsObjects){
+        console.log("****************** 5e callback **********************");
         callback(null, linksWithSubjectsObjects);
       });
     },
     // 6. calculate jaccard index
     function(linksWithSubjectsObjects, callback){
       jaccard.calculateMultipleJaccardIndex(linksWithSubjectsObjects, function(err, linksWithJaccard){
+        console.log("****************** 6e callback **********************");
         callback(null, linksWithJaccard);
       });
     }
   ], function (err, result) {
-    for(var i = 0; i < result.length; i++) {
-      //console.log(result[i]);
-    }
     // on obtient ici le Json de création du graph
+    
     //console.log(utils.constructGraph(result));
 
     var resultForFront = {list:[], graph:{}};

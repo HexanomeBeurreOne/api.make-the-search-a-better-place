@@ -5,7 +5,8 @@ var async = require('async');
 
 
 var getTextFromUrl = function(url, callback) {
-	var KEY = process.env.RAW_TEXT_API_KEY;;
+
+	var KEY = process.env.RAW_TEXT_API_KEY;
 
 	// Url correspondant a l'appel a la web API
 	var text = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRawText?apikey='+KEY+'&url='+url;

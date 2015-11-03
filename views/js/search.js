@@ -1,5 +1,5 @@
 var maxOfPage = 20;
-var numOfPage = 10;
+var numOfPage = 5;
 
 $(function() {
     // Get the form.

@@ -55,9 +55,15 @@ app.get('/getUriFromQuery', function(req, res) {
         callback(null, linksWithTriplets);
       });
     },
-    // 5. Get jaccard index for all s and o values of triplets
+    // 5. Extract Objects and Subjects values from triplets
     function(linksWithTriplets, callback){
-      utils.getSubjectsAndObjectsFromTriplets(linksWithTriplets, function(err, linksWithJaccard){
+      utils.getSubjectsAndObjectsFromTriplets(linksWithTriplets, function(err, linksWithSubjectsObjects){
+        callback(null, linksWithSubjectsObjects);
+      });
+    },
+    // 6. calculate jaccard index
+    function(linksWithSubjectsObjects, callback){
+      jaccard.calculateMultipleJaccardIndex(linksWithSubjectsObjects, function(err, linksWithJaccard){
         callback(null, linksWithJaccard);
       });
     }

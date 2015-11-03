@@ -5,15 +5,17 @@ var async = require('async');
 
 
 var getTextFromUrl = function(url, callback) {
-	var KEY = '7d23f40b7dfa15c3d424e0ee1ab2d2be7a288ef2';
+	var KEY = 'e959fb1dd503eaded99080309c9777f8b8fc52c8';
 
 	// Url correspondant a l'appel a la web API
-	var text = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRawText?apikey='+KEY+'&url='+url;
+	var urlRequest = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey='+KEY+'&url='+url+'&keywordExtractMode=normal&outputMode=json';
 
-	request(text, function (error, response, body) {
+	request({
+	    url: urlRequest
+	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log(body);
-			callback(null, body);
+			body=JSON.parse(body);
+			callback(null, body.keywords);
   		}
   		else {
   			callback(error);
@@ -23,17 +25,18 @@ var getTextFromUrl = function(url, callback) {
 module.exports.getTextFromUrl = getTextFromUrl;
 
 var getTextFromGoogleLinks = function(googleLinks, maincallback) {
-	var API_KEY = '7d23f40b7dfa15c3d424e0ee1ab2d2be7a288ef2';
+	var API_KEY = 'e959fb1dd503eaded99080309c9777f8b8fc52c8';
 
 	// Create an asynch stack of request exectuted in parallel
 	// value is the object in the array and key is its index
 	async.forEachOf(googleLinks, function (value, key, callback) {
-		var requestURL = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRawText?apikey='+API_KEY+'&url='+value.url;
+		var urlRequest = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey='+KEY+'&url='+url+'&keywordExtractMode=normal&outputMode=json';
 		// Request for an URL
 		request(requestURL, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Add URL text to the main object googleLinks
-				googleLinks[key].text=body;
+				body=JSON.parse(body);
+				googleLinks[key].text=body.keywords;
 				callback();
   		}
   		else {

@@ -8,6 +8,7 @@ var jaccard = require('./helpers/jaccard.js');
 var spotlight = require('./helpers/spotlight_use.js');
 var sparql = require('./helpers/sparql.js');
 var urlToText = require('./helpers/urlToText.js');
+var utils = require('./helpers/utils.js');
 
 var app = express();
 app.use('/views',express.static(__dirname + '/views'));
@@ -53,11 +54,26 @@ app.get('/getUriFromQuery', function(req, res) {
       sparql.sparqlSearch(linksWithSpotlightURI, function(err, linksWithTriplets){
         callback(null, linksWithTriplets);
       });
+    },
+    // 5. Extract Objects and Subjects values from triplets
+    function(linksWithTriplets, callback){
+      utils.getSubjectsAndObjectsFromTriplets(linksWithTriplets, function(err, linksWithSubjectsObjects){
+        callback(null, linksWithSubjectsObjects);
+      });
+    },
+    // 6. calculate jaccard index
+    function(linksWithSubjectsObjects, callback){
+      jaccard.calculateMultipleJaccardIndex(linksWithSubjectsObjects, function(err, linksWithJaccard){
+        callback(null, linksWithJaccard);
+      });
     }
   ], function (err, result) {
     for(var i = 0; i < result.length; i++) {
       //console.log(result[i]);
     }
+    // on obtient ici le Json de création du graph
+    console.log(utils.constructGraph(result));
+
 	  res.contentType('application/json');
 	  res.send(JSON.stringify(result));
     // result now equals 'done'

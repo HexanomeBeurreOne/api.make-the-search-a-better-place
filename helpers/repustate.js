@@ -28,7 +28,7 @@ var getThemeFromKeyWord = function (pages, maincallback) {
 				}
 			}
 			else {
-				callback(error);
+				callback(err);
 			}
 		});
 

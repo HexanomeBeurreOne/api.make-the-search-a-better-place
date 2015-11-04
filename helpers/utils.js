@@ -66,25 +66,24 @@ var constructGraph = function(pages) {
 		var node = {"name":pages[i].title,"group":5};
 		nodes.push(node);
 		for(var j=i+1 ; j<pages.length ; j++) {
-			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]*10});
+			var jaccardCoef = pages[i].Jaccard[j-i-1];
+			links.push({"source":i,"target":j,"value":jaccardCoef*10});
 		}
-		nodesKeyIndex[pages[i].title] = nodes.indexOf(node);
+		//nodesKeyIndex[pages[i].title] = nodes.indexOf(node);
 		
 
+/*
+		tempThemes.concat(pages[i].themes);
 
-		for (var k = 0; k < pages[i].length; k++) {
-			tempThemes += pages[i].themes;
-		};
-
-		$.each(tempThemes, function(i, el){
+		tempThemes.forEach(function(i, el){
 			if($.inArray(el, uniqueThemes) === -1){
 				uniqueThemes.push(el);
 
-			} 
-		})
-
+			}
+		});
+*/
 	}
-	for(var i=0 ; i<uniqueThemes.length ; i++) {
+	/*for(var i=0 ; i<uniqueThemes.length ; i++) {
 		var themeNode = {"name":uniqueThemes[i],"group":1};
 
 		nodes.push(themeNode);
@@ -95,7 +94,7 @@ var constructGraph = function(pages) {
 		};
 			
 			
-	}
+	}*/
 	graph["nodes"] = nodes;
 	graph["links"] = links;
 

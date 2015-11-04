@@ -45,18 +45,24 @@ var googleCrawler = new Crawler({
     // This will be called for each crawled page
 });
 
-var getGoogleResult = function(searchQuery, numOfResult, appCallback) {
+var getGoogleResult = function(searchQuery, numOfResult, lang, appCallback) {
     //Set app.js callback where array should be returned
     mainCallback = appCallback;
     //Call crawler
+
+    if (lang != 'fr' && lang != 'en') {
+        lang = 'en';
+    }
     googleCrawler.queue({
-        uri: googleSearch(searchQuery, numOfResult),
+        uri: googleSearch(searchQuery, numOfResult, lang),
         callback: googleCallback
     });
 };
 module.exports.getGoogleResult = getGoogleResult;
 
 //Create Google URI string with query and number of results wanted
-var googleSearch = function(query, numOfResult) {
-  return 'http://www.google.com/search?ie=utf-8&oe=utf-8&aq=t&rls=com.ubuntu:en-US:official&q=' + query + '&num=' + numOfResult;
+var googleSearch = function(query, numOfResult, lang) {
+  var uri = 'http://www.google.com/search?ie=utf-8&oe=utf-8&hl=' + lang + '&q=' + query + '&num=' + numOfResult;
+  console.log("Google URI called: " + uri);
+  return uri;
 };

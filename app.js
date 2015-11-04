@@ -29,11 +29,12 @@ app.get('/getUriFromQuery', function(req, res) {
   //parse query
   var query = req.query.q || "";
   var resultLength = req.query.num || 10;
+  var lang = req.query.lang;
 
   waterfall([
     // 1. Fetch Google urls
     function(callback){
-      gCrawler.getGoogleResult(query, resultLength, function (error, googleLinks) {
+      gCrawler.getGoogleResult(query, resultLength, lang, function (error, googleLinks) {
         // Return Objects array : {title:"", url:""}
         console.log("****************** 1e callback **********************");
         callback(null, googleLinks);
@@ -98,8 +99,9 @@ app.get('/getSearchUrls', function (req, res) {
 	var searchQuery = req.query.q;
   // default google results is set to 10
 	var num = req.query.num || 10;
+  var lang = req.query.lang;
 
-	gCrawler.getGoogleResult(searchQuery, num, function (error, links) {
+	gCrawler.getGoogleResult(searchQuery, num, lang, function (error, links) {
     // Return Objects array : {title:"", url:""}
 	  res.contentType('application/json');
 	  res.send(JSON.stringify(links));

@@ -6,7 +6,13 @@ function OpenInNewTab(url) {
   win.focus();
 }
 
+
+
 $(function() {
+    $('.lang').click(function(){
+       $('.lang').removeClass("active");
+       $(this).addClass("active");
+    });
     // Get the form.
     var form = $('#searchForm');
 
@@ -14,7 +20,7 @@ $(function() {
     var list = $('#resultList');
     updateNumberOfPage(50);
     $(form).submit(function(event) {
-
+        list.text("");
         /* stop form from submitting normally */
         event.preventDefault();
         $('input').blur();
@@ -22,10 +28,11 @@ $(function() {
         
 	    // Get input query
 	    var query = $('#query').val();
-
+        var lang = $('.lang.active').text();
+        console.log("Language selected is " + lang);
         /* Send the data using get */
-        $.get('/getUriFromQuery', {q: query, num: Math.round(numOfPage)}, function (data) {
-        	list.text("");
+        $.get('/getUriFromQuery', {q: query, num: Math.round(numOfPage), lang:lang}, function (data) {
+        	
         	console.log(data);
         	for(var i = 0, l = Math.min(numOfPage, data.list.length); i< l; i++)	{
         		var link = data.list[i];

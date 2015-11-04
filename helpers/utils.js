@@ -20,15 +20,23 @@ var getSubjectsAndObjectsFromTriplets = function(pages, maincallback) {
 
 		var subjectsObjectsJSON = {};
 
-		for (var i = 0; i < value.triplets[0].results.bindings.length; i++) {
+		if (value.triplets) {
+			for (var i = 0; i < value.triplets[0].results.bindings.length; i++) {
+				var subject = value.triplets[0].results.bindings[i].s;
+				var object = value.triplets[0].results.bindings[i].o;
 
-			subjectsObjectsJSON[value.triplets[0].results.bindings[i].s.value] = subjectsObjectsJSON[value.triplets[0].results.bindings[i].s.value] ? subjectsObjectsJSON[value.triplets[0].results.bindings[i].s.value]+1 : 1;
+				subjectsObjectsJSON[subject.value] = subjectsObjectsJSON[subject.value] ? subjectsObjectsJSON[subject.value]+1 : 1;
+				subjectsObjectsJSON[object.value] = subjectsObjectsJSON[object.value] ? subjectsObjectsJSON[object.value]+1 : 1;
+			}
+			pages[key].SubjectsObjects = subjectsObjectsJSON;
 
-			subjectsObjectsJSON[value.triplets[0].results.bindings[i].o.value] = subjectsObjectsJSON[value.triplets[0].results.bindings[i].o.value] ? subjectsObjectsJSON[value.triplets[0].results.bindings[i].o.value]+1 : 1;
+			callback();
 		}
-		pages[key].SubjectsObjects = subjectsObjectsJSON;
+		else	{
+			pages[key].SubjectsObjects = [];
+			callback();
+		}
 
-		callback();
 	}, function (err) {
 		if (err) console.error(err.message);
 		// Returns to maincallback googleLinks with URLs text

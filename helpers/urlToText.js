@@ -32,17 +32,26 @@ var getTextFromGoogleLinks = function(googleLinks, maincallback) {
 	// value is the object in the array and key is its index
 	async.forEachOf(googleLinks, function (value, key, callback) {
 		var urlRequest = 'http://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey='+KEY+'&url='+value.url+'&keywordExtractMode=normal&outputMode=json';
+
 		// Request for an URL
 		request(urlRequest, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				// Add URL text to the main object googleLinks
 				body=JSON.parse(body);
-				googleLinks[key].text=body.keywords;
+
+				var keywords = body.keywords;
+
+				for(var i = 0; i < keywords.length; i++)	{
+					googleLinks[key].text = (googleLinks[key].text?googleLinks[key].text:"") + keywords[i].text + ((i+1!=keywords.length)?' ':'');
+					console.log("keyword for key " + key + " : ", keywords[i].text);
+				}
+
+				//googleLinks[key].text = body;
 				callback();
-  		}
-  		else {
-  			callback(error);
-  		}
+  			}
+  			else {
+  				callback(error);
+  			}
 		});
 	}, function (err) {
 	  if (err) console.error(err.message);

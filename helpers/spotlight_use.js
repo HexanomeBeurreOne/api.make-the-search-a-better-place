@@ -38,20 +38,28 @@ var spotlightSearchFromLinks = function(linksData, maincallback) {
 	async.forEachOf(linksData, function (value, key, callback) {
 		var uriList = [];
 		var requestURL = 'http://spotlight.dbpedia.org/rest/annotate?text=' + value.text + '&confidence=0.2&support=20';
+		console.log(value);
 		request({
 		    url: requestURL,
 		    json: true
 		}, function (error, response, body) {
 		    if (!error && body && response.statusCode === 200)
 		    {
-		    	for (var i = body.Resources.length - 1; i >= 0; i--)
-		    	{
-		    		uriList.push(body.Resources[i]["@URI"]);
-		    	}
-					// Add URL text to the main object googleLinks
-					//var sortedURIs = utils.arrayToSortedJSON(uriList);
-					linksData[key].spotlightURI=uriList;
-					callback();
+		    	console.log("*******************");
+		    	console.log(body);
+		    	console.log("*******************");
+
+		    	if (body.Resources) {
+			    	for (var i = body.Resources.length - 1; i >= 0; i--)
+			    	{
+			    		uriList.push(body.Resources[i]["@URI"]);
+			    	}
+			    }
+				// Add URL text to the main object googleLinks
+				//var sortedURIs = utils.arrayToSortedJSON(uriList);
+				linksData[key].spotlightURI=uriList;
+				callback();
+
 		    }
 	  		else {
 	  			callback(error);

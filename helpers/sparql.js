@@ -13,30 +13,34 @@ var sparqlSearch = function(pages, maincallback) {
 		var listUri = value.spotlightURI;
 
 		//-------------------------------Set synthaxe of URIs for query
-		if (listUri.length != 0)
+		if (listUri && listUri.length != 0)
 	    {
-	      var parse = "<";
-	      parse += listUri[0];
-	      parse+= ">";
+			var parse = "<";
+			parse += listUri[0];
+			parse+= ">";
 
-	      for (var i = 1; i <= listUri.length - 1; i++)
-	      {
-	          parse += ",<";
-	          parse += listUri[i];
-	          parse += ">";
-	      };
-	  	}
+			for (var i = 1; i <= listUri.length - 1; i++)
+			{
+				parse += ",<";
+				parse += listUri[i];
+				parse += ">";
+			}
 		
-		//---------------------------------------------Sparql query
-		client.query(' SELECT * WHERE { ?s ?p ?o. FILTER(?s in ('+parse+')) } LIMIT 100', function (err, results) {
-			if (err) throw err;
-			var requestResults = [];
-			requestResults.push(results);
-			pages[key].triplets=requestResults;
-			//Callback for synchronous http request
-			callback(null, results);
+			//---------------------------------------------Sparql query
+			client.query(' SELECT * WHERE { ?s ?p ?o. FILTER(?s in ('+parse+')) } LIMIT 100', function (err, results) {
+				if (err) throw err;
+				var requestResults = [];
+				requestResults.push(results);
+				pages[key].triplets=requestResults;
+				//Callback for synchronous http request
+				callback(null, results);
 
-		});
+			});
+		}
+		else
+		{
+			callback();
+		}
 	}, function (err) {
 		if (err) console.error(err.message);
 		// Returns to maincallback googleLinks with URLs text

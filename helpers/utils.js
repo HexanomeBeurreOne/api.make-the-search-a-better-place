@@ -59,11 +59,42 @@ var constructGraph = function(pages) {
 
 	var nodes = [];
 	var links = [];
+	var tempThemes = [];
+	var uniqueThemes = [];
+	var nodesKeyIndex = [];
 	for(var i=0 ; i<pages.length ; i++) {
-		nodes.push({"name":pages[i].title,"group":i});
+		var node = {"name":pages[i].title,"group":5};
+		nodes.push(node);
 		for(var j=i+1 ; j<pages.length ; j++) {
-			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]});
+			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]*10});
 		}
+		nodesKeyIndex[pages[i].title] = nodes.indexOf(node);
+		
+
+
+		for (var k = 0; k < pages[i].length; k++) {
+			tempThemes += pages[i].themes;
+		};
+
+		$.each(tempThemes, function(i, el){
+			if($.inArray(el, uniqueThemes) === -1){
+				uniqueThemes.push(el);
+
+			} 
+		})
+
+	}
+	for(var i=0 ; i<uniqueThemes.length ; i++) {
+		var themeNode = {"name":uniqueThemes[i],"group":1};
+
+		nodes.push(themeNode);
+		nodesKeyIndex[uniqueThemes[i]] = nodes.indexOf(themeNode);
+
+		for (var j = 0; j < pages.length; j++) {
+			if ($.inArray(uniqueThemes[i], pages[j].themes)) links.push({"source":nodesKeyIndex[uniqueThemes[i]],"target":nodesKeyIndex[pages[j].title],"value":1});
+		};
+			
+			
 	}
 	graph["nodes"] = nodes;
 	graph["links"] = links;

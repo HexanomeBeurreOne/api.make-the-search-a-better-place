@@ -58,5 +58,5 @@ module.exports.getGoogleResult = getGoogleResult;
 
 //Create Google URI string with query and number of results wanted
 var googleSearch = function(query, numOfResult) {
-  return 'http://www.google.fr/search?q=' + query + '&num=' + numOfResult;
+  return 'http://www.google.com/search?ie=utf-8&oe=utf-8&aq=t&rls=com.ubuntu:en-US:official&q=' + query + '&num=' + numOfResult;
 };

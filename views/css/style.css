@@ -92,10 +92,11 @@ body {
     margin-top:10px;
     margin-right:10px;
     background-color:#fff;
-    border-color: black;
 }
 .volumeBar {
     display:block;
+    /*border: 1px solid #000000;*/
+    border-radius: 5px;
     height:20px;
     position:absolute;
     top:0;

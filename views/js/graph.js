@@ -21,7 +21,7 @@ function runD3Code(graph) {
   force
       .nodes(graph.nodes)
       .links(graph.links)
-      .linkDistance(500)
+      .linkDistance(300)
       .start();
 
   var link = svg.selectAll(".link")
@@ -39,8 +39,13 @@ function runD3Code(graph) {
   var node = gnodes.append("circle")
       .attr("class", "node")
       .attr("r", 5)
+      .attr("href", function(d) {return d.url;})
       .style("fill", function(d) { return color(d.group); })
       .call(force.drag);
+
+  d3.selectAll("circle.node").on("click", function(){
+            OpenInNewTab(d3.select(this).attr("href"));
+        });
 
   var labels = gnodes.append("text")
       .attr("dx", 12)

@@ -1,6 +1,11 @@
 var maxOfPage = 30;
 var numOfPage;
 
+function OpenInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
+
 $(function() {
     // Get the form.
     var form = $('#searchForm');

@@ -60,9 +60,10 @@ var constructGraph = function(pages) {
 	var nodes = [];
 	var links = [];
 	for(var i=0 ; i<pages.length ; i++) {
-		nodes.push({"name":pages[i].title,"group":i});
+		nodes.push({"name":pages[i].title,"group":0, "url":pages[i].url});
 		for(var j=i+1 ; j<pages.length ; j++) {
-			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]*10});
+			var jaccardCoef = pages[i].Jaccard[j-i-1];
+			links.push({"source":i,"target":j,"value":jaccardCoef*10});
 		}
 	}
 	graph["nodes"] = nodes;

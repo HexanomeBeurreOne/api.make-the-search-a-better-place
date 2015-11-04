@@ -35,10 +35,9 @@ var getSubjectsAndObjectsFromTriplets = function(pages, maincallback) {
 				subjectsObjectsJSON[subject.value] = subjectsObjectsJSON[subject.value] ? subjectsObjectsJSON[subject.value]+1 : 1;
 				subjectsObjectsJSON[object.value] = subjectsObjectsJSON[object.value] ? subjectsObjectsJSON[object.value]+1 : 1;
 			}
-			
+
 			pages[key].SubjectsObjects = subjectsObjectsJSON;
 			pages[key].KeywordsUri = keywordsUri;
-			console.log(keywordsUri);
 
 			callback();
 		}

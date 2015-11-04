@@ -14,9 +14,18 @@ var getThemeFromKeyWord = function (pages, maincallback) {
 		}, function(err,httpResponse,body){
 			if (!err && body && httpResponse.statusCode === 200)
 			{
-				//body = JSON.parse(body);
+				// body = JSON.parse(body);
 				console.log(body);
-				callback();
+
+				if (body) {
+
+					pages[key].themes = body.themes;
+					callback();
+				}
+				else	{
+					pages[key].themes = [];
+					callback();
+				}
 			}
 			else {
 				callback(error);

@@ -40,9 +40,11 @@ var getTextFromGoogleLinks = function(googleLinks, maincallback) {
 
 				var keywords = body.keywords;
 
-				for(var i = 0; i < keywords.length; i++)	{
-					googleLinks[key].text = (googleLinks[key].text?googleLinks[key].text:"") + keywords[i].text + ((i+1!=keywords.length)?' ':'');
-					// console.log("keyword for key " + key + " : ", keywords[i].text);
+				if (keywords) {
+					for(var i = 0; i < keywords.length; i++)	{
+						googleLinks[key].text = (googleLinks[key].text?googleLinks[key].text:"") + keywords[i].text + ((i+1!=keywords.length)?' ':'');
+						// console.log("keyword for key " + key + " : ", keywords[i].text);
+					}
 				}
 
 				//googleLinks[key].text = body;

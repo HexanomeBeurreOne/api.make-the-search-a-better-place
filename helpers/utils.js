@@ -62,7 +62,7 @@ var constructGraph = function(pages) {
 	for(var i=0 ; i<pages.length ; i++) {
 		nodes.push({"name":pages[i].title,"group":i});
 		for(var j=i+1 ; j<pages.length ; j++) {
-			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]});
+			links.push({"source":i,"target":j,"value":pages[i].Jaccard[j-i-1]*10});
 		}
 	}
 	graph["nodes"] = nodes;

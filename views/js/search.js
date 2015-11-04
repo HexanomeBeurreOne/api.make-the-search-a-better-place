@@ -1,5 +1,5 @@
-var maxOfPage = 20;
-var numOfPage = 5;
+var maxOfPage = 30;
+var numOfPage;
 
 $(function() {
     // Get the form.
@@ -81,7 +81,8 @@ var updateVolume = function (x, vol) {
 };
 
 var updateNumberOfPage = function(percentage) {
-	$('.volumeBar').css('width', percentage + '%');
+	
     numOfPage = Math.round(percentage*maxOfPage/100);
+    $('.volumeBar').css('width', numOfPage*100/maxOfPage + '%');
     $('#numOfLink').text("Nombre de pages : "+numOfPage);
 }

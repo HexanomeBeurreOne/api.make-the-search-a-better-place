@@ -31,7 +31,7 @@ $(function() {
         		var link = data.list[i];
         		list.append("<a class='list-group-item' href='" + link.url + "'>" + link.title + "</a>");
         	}
-            console.log("ICI graph vaut ");
+            console.log("Le graph vaut ");
             console.log(data.graph);
             if (data.graph) {
                 console.log("Graph will be drawn");

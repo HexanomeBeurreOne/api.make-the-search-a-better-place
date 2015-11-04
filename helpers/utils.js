@@ -60,7 +60,12 @@ var constructGraph = function(pages) {
 	var nodes = [];
 	var links = [];
 	for(var i=0 ; i<pages.length ; i++) {
-		nodes.push({"name":pages[i].title,"group":0, "url":pages[i].url});
+		var newNode;
+		if (pages[i].keywords && pages[i].keywords[0] && pages[i].keywords[0].text)
+			newNode = {"name":pages[i].title,"group":0, "url":pages[i].url, "keyword":pages[i].keywords[0].text};
+		else
+			newNode = {"name":pages[i].title,"group":0, "url":pages[i].url};
+		nodes.push(newNode);
 		for(var j=i+1 ; j<pages.length ; j++) {
 			var jaccardCoef = pages[i].Jaccard[j-i-1];
 			links.push({"source":i,"target":j,"value":jaccardCoef*10});

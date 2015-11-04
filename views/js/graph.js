@@ -40,10 +40,14 @@ function runD3Code(graph) {
       .attr("class", "node")
       .attr("r", 5)
       .attr("href", function(d) {return d.url;})
+      .attr("keyword", function(d) {return d.keyword;})
       .style("fill", function(d) { return color(d.group); })
       .call(force.drag);
 
   d3.selectAll("circle.node").on("click", function(){
+            $('#query').val(d3.select(this).attr("keyword"));
+            $('#resultList').text("");
+            $('#searchForm').submit();
             OpenInNewTab(d3.select(this).attr("href"));
         });
 

@@ -25,7 +25,7 @@ var getTextFromUrl = function(url, callback) {
 module.exports.getTextFromUrl = getTextFromUrl;
 
 var getTextFromGoogleLinks = function(googleLinks, maincallback) {
-	var KEY = 'e959fb1dd503eaded99080309c9777f8b8fc52c8';
+	var KEY = '42dba9afb8537050348b9488ef9245edb3e4a9c6';
 
 	// Create an asynch stack of request exectuted in parallel
 	// value is the object in the array and key is its index
@@ -37,9 +37,11 @@ var getTextFromGoogleLinks = function(googleLinks, maincallback) {
 			if (!error && response.statusCode == 200) {
 				// Add URL text to the main object googleLinks
 				body=JSON.parse(body);
-
+				console.log("*******************body*******************");
+				console.log(body);
+				console.log("******************* end body*******************");
 				var keywords = body.keywords;
-
+				googleLinks[key].keywords = keywords;
 				if (keywords) {
 					for(var i = 0; i < keywords.length; i++)	{
 						googleLinks[key].text = (googleLinks[key].text?googleLinks[key].text:"") + keywords[i].text + ((i+1!=keywords.length)?' ':'');

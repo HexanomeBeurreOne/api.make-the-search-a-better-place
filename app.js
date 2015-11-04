@@ -8,6 +8,7 @@ var jaccard = require('./helpers/jaccard.js');
 var spotlight = require('./helpers/spotlight_use.js');
 var sparql = require('./helpers/sparql.js');
 var urlToText = require('./helpers/urlToText.js');
+var repustate = require('./helpers/repustate.js');
 var utils = require('./helpers/utils.js');
 
 var app = express();
@@ -66,9 +67,16 @@ app.get('/getUriFromQuery', function(req, res) {
         callback(null, linksWithSubjectsObjects);
       });
     },
-    // 6. calculate jaccard index
+    // 5.1. Get repustate domains
     function(linksWithSubjectsObjects, callback){
-      jaccard.calculateMultipleJaccardIndex(linksWithSubjectsObjects, function(err, linksWithJaccard){
+      repustate.getThemeFromKeyWord(linksWithSubjectsObjects, function(err, linksWithThemes){
+        console.log("****************** 2.1e callback **********************");
+        callback(null, linksWithThemes);
+      });
+    },
+    // 6. calculate jaccard index
+    function(linksWithThemes, callback){
+      jaccard.calculateMultipleJaccardIndex(linksWithThemes, function(err, linksWithJaccard){
         console.log("****************** 6e callback **********************");
         callback(null, linksWithJaccard);
       });

@@ -19,16 +19,26 @@ var getSubjectsAndObjectsFromTriplets = function(pages, maincallback) {
 	async.forEachOf(pages, function (value, key, callback) {
 
 		var subjectsObjectsJSON = {};
-
+		var keywordsUri;
 		if (value.triplets) {
 			for (var i = 0; i < value.triplets[0].results.bindings.length; i++) {
 				var subject = value.triplets[0].results.bindings[i].s;
 				var object = value.triplets[0].results.bindings[i].o;
 
+				if(!subjectsObjectsJSON[subject.value]) {
+
+	                var str = JSON.stringify(value.triplets[0].results.bindings[i].s.value);
+	                var line = str.split("/");
+	                keywordsUri = (keywordsUri?keywordsUri:"") + line[line.length-1]+" ";
+	            }
+
 				subjectsObjectsJSON[subject.value] = subjectsObjectsJSON[subject.value] ? subjectsObjectsJSON[subject.value]+1 : 1;
 				subjectsObjectsJSON[object.value] = subjectsObjectsJSON[object.value] ? subjectsObjectsJSON[object.value]+1 : 1;
 			}
+			
 			pages[key].SubjectsObjects = subjectsObjectsJSON;
+			pages[key].KeywordsUri = keywordsUri;
+			console.log(keywordsUri);
 
 			callback();
 		}

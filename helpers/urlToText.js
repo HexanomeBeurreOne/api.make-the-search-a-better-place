@@ -15,7 +15,6 @@ var getTextFromUrl = function(url, callback) {
 	}, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			body=JSON.parse(body);
-			console.log(body);
 			callback(null, body.keywords);
   		}
   		else {
@@ -43,7 +42,7 @@ var getTextFromGoogleLinks = function(googleLinks, maincallback) {
 
 				for(var i = 0; i < keywords.length; i++)	{
 					googleLinks[key].text = (googleLinks[key].text?googleLinks[key].text:"") + keywords[i].text + ((i+1!=keywords.length)?' ':'');
-					console.log("keyword for key " + key + " : ", keywords[i].text);
+					// console.log("keyword for key " + key + " : ", keywords[i].text);
 				}
 
 				//googleLinks[key].text = body;

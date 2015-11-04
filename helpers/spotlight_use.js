@@ -45,10 +45,6 @@ var spotlightSearchFromLinks = function(linksData, maincallback) {
 		}, function (error, response, body) {
 		    if (!error && body && response.statusCode === 200)
 		    {
-		    	console.log("*******************");
-		    	console.log(body);
-		    	console.log("*******************");
-
 		    	if (body.Resources) {
 			    	for (var i = body.Resources.length - 1; i >= 0; i--)
 			    	{
